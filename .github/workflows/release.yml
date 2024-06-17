@@ -1,0 +1,53 @@
+name: 📤 Release
+
+on:
+  push:
+    branches:
+      - main
+      - next
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+env:
+   TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+   TURBO_TEAM: ${{ vars.TURBO_TEAM }}
+   TURBO_REMOTE_ONLY: true
+
+jobs:
+  release:
+    name: 🌍 Release
+    # prevents this action from running on forks
+    if: ${{ github.repository_owner == 'galaxiajs' }}
+    permissions:
+      contents: write # to create release (changesets/action)
+      id-token: write
+      pull-requests: write # to create pull request (changesets/action)
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v4
+        with:
+          # This makes Actions fetch all Git history so that Changesets can generate changelogs with the correct commits
+          fetch-depth: 0
+
+      - name: 📤 Install Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+          
+      - name: 📤 Install dependencies
+        run: bun install
+
+      - name: 🛠 Build Packages
+        run: bun run build
+
+      - name: 🪢 Create Release Pull Request
+        id: changesets
+        uses: changesets/action@v1
+        with:
+          publish: bun run release
+          commit: 'chore(ci): release'
+          title: 'chore(ci): release'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
