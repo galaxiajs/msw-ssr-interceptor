@@ -11,7 +11,7 @@ export default defineConfig({
 	clean: true,
 	dts: true,
 	external: ["msw", "@playwright/test", "stream", "node:stream"],
-	noExternal: ["ws", "esbuild", "serialize-javascript", "zod"],
+	noExternal: ["ws", "esbuild", "zod", "seroval", "seroval-plugins"],
 	minify: false,
 	inject: ["./cjs-shim.ts"],
 });

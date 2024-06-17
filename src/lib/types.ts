@@ -18,6 +18,14 @@ export type HttpRequestHandler = <
 	options?: RequestHandlerOptions
 ) => SerialisableRequestHandler;
 
+export type RequestHandlerContext<
+	Params extends PathParams<keyof Params> = PathParams,
+	RequestBodyType extends DefaultBodyType = DefaultBodyType,
+	ResponseBodyType extends DefaultBodyType = undefined,
+> = Parameters<
+	HttpResponseResolver<Params, RequestBodyType, ResponseBodyType>
+>[0];
+
 export type HttpMethod = keyof typeof mswHttp;
 export type HttpNamespace = {
 	[K in HttpMethod]: HttpRequestHandler;

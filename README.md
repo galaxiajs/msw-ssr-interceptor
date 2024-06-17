@@ -97,7 +97,10 @@ internally, this also creates a web socket server.
 
 Unlike msw, you cannot use the returned server from `setupServer` in your tests to
 add/remove handlers. Instead, you must use the return value of `setupInterceptor` from `msw-ssr-interceptor`. Internally, `setupInterceptor` creates a web socket client and informs the server whenever you
-add or remove request handlers. It does this by sending over a serialised representation of the handler. On the server side, this representation is deserialised and then registered with/removed from your msw server running in your SSR app as needed.
+add or remove request handlers. It does this by sending over a serialised representation of the handler; this includes a uniquely generated identifier for this request handler. On the server side, this representation is deserialised and then registered with/removed from your msw server running in your SSR app as needed. When a request is matched on the app side,
+it sends that request to the client with the corresponding resolver ID which will then handle
+the request on client, sending the response back to your SSR app. This approach avoids
+function serialisation hell at the expense of network roundtrips.
 
 All serialisation/de-serialisation is handled by [`serialize-javascript`](https://github.com/yahoo/serialize-javascript).
 

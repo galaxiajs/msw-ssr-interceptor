@@ -1,6 +1,10 @@
 import { http, type RequestHandler } from "msw";
-import { setupServer, type SetupServerApi } from "msw/node";
-import { ClientMessage, ServerMessage } from "./utils/schemas";
+import { type SetupServerApi, setupServer } from "msw/node";
+import {
+	ClientMessage,
+	type RequestHandlerConfig,
+	ServerMessage,
+} from "./utils/schemas";
 import { createWebsocketServer } from "./utils/websocket";
 
 export function setupRemoteServer(
@@ -12,34 +16,37 @@ export function setupRemoteServer(
 		responses: ServerMessage,
 	});
 
-	socket.on("server:handler:add", (serialisedHandlers) => {
-		const handlers = serialisedHandlers.map(
-			({ method, options, path, resolver }) =>
-				http[method](
-					path,
-					async (ctx) => {
-						// TODO: Need a better way of serialising context over
-						const deps = new Set(options.dependencies ?? []);
-						if (!deps.has("msw")) deps.add("msw");
+	function mapHandlers(serialisedHandlers: RequestHandlerConfig[]) {
+		const handlers = serialisedHandlers.map(({ method, options, path, id }) => {
+			const resolver = http[method](
+				path,
+				async (context) => {
+					socket.send("server:handler:handle", { id, context });
+					return new Promise<Response>((resolve) => {
+						socket.on("server:handler:handled", (response) => {
+							socket.remove("server:handler:handled");
+							resolve(response);
+						});
+					});
+				},
+				options
+			);
 
-						for (const dep of deps) {
-							const mod = await import(dep);
-							Object.assign(globalThis, mod);
-						}
+			return resolver;
+		});
 
-						return await resolver(ctx);
-					},
-					options
-				)
-		);
+		return handlers;
+	}
 
+	socket.on("server:handler:add", (configs) => {
+		const handlers = mapHandlers(configs);
 		server.use(...handlers);
 		socket.send("server:handler:add", { ok: true });
 	});
 
-	socket.on("server:handler:remove", (_handlers) => {
-		// TODO: How to reset handlers
-		server.resetHandlers();
+	socket.on("server:handler:remove", (configs) => {
+		const handlers = mapHandlers(configs);
+		server.resetHandlers(...handlers);
 		socket.send("server:handler:remove", { ok: true });
 	});
 
