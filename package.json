@@ -15,7 +15,7 @@
 		"typecheck": "turbo run typecheck --filter='./packages/*'",
 		"--------------------------------------------------------------------------------": "",
 		"lint": "biome lint .",
-		"lint:fix": "biome check . --apply",
+		"lint:fix": "biome check . --write",
 		"check": "biome check .",
 		"format": "biome format . --write",
 		"---------------------------------------------------------------------------------": "",
