@@ -1,0 +1,79 @@
+{
+	"name": "msw-ssr-interceptor",
+	"type": "module",
+	"version": "0.0.1",
+	"description": "Helper to use msw in SSR environments",
+	"author": "Ernest Nkansah-Badu <ernestjbadu@outlook.com> (https://github.com/Ernxst)",
+	"license": "MIT",
+	"homepage": "https://github.com/galaxiajs/msw-ssr-interceptor",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/galaxiajs/msw-ssr-interceptor.git",
+		"directory": "packages/msw-ssr-interceptor"
+	},
+	"main": "./dist/index.js",
+	"module": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js"
+		},
+		"./node": {
+			"types": "./dist/node/index.d.ts",
+			"import": "./dist/node/index.js"
+		},
+		"./playwright": {
+			"types": "./dist/playwright/index.d.ts",
+			"import": "./dist/playwright/index.js"
+		}
+	},
+	"files": ["dist", "package.json"],
+	"typesVersions": {
+		"*": {
+			".": ["./dist/index"],
+			"node": ["./dist/node/index"],
+			"playwright": ["./dist/playwright/index"]
+		}
+	},
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org"
+	},
+	"scripts": {
+		"-------------------------------------------------------------------------------": "",
+		"dev": "tsup --watch",
+		"build": "tsup",
+		"postbuild": "publint",
+		"typecheck": "tsc --noEmit",
+		"---------------------------------------------------------------------------------": "",
+		"test": "vitest run",
+		"test:e2e": "playwright test",
+		"test:watch": "vitest --watch"
+	},
+	"peerDependencies": {
+		"@playwright/test": "^1.40.0",
+		"msw": "^2.0.0"
+	},
+	"peerDependenciesMeta": {
+		"@playwright/test": {
+			"optional": true
+		},
+		"msw": {
+			"optional": false
+		}
+	},
+	"dependencies": {
+		"@playwright/test": "^1.44.1",
+		"msw": "^2.3.1",
+		"seroval": "1.0.7",
+		"seroval-plugins": "1.0.7",
+		"ws": "8.17.1",
+		"zod": "3.23.8"
+	},
+	"devDependencies": {
+		"@types/ws": "8.5.10",
+		"publint": "0.2.8",
+		"tsup": "8.1.0",
+		"typescript": "5.4.5"
+	}
+}

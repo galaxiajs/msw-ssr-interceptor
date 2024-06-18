@@ -1,6 +1,6 @@
 import type { PlaywrightTestArgs, TestFixture } from "@playwright/test";
-import type { Interceptor } from "../types";
 import { setupInterceptor } from "../client";
+import type { Interceptor } from "../types";
 
 export interface InterceptorFixtures {
 	server: Interceptor;

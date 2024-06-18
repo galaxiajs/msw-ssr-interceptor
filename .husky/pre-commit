@@ -36,9 +36,9 @@ call_lefthook()
   elif yarn lefthook -h >/dev/null 2>&1
   then
     yarn lefthook "$@"
-  elif pnpm lefthook -h >/dev/null 2>&1
+  elif bun lefthook -h >/dev/null 2>&1
   then
-    pnpm lefthook "$@"
+    bun lefthook "$@"
   elif swift package plugin lefthook >/dev/null 2>&1
   then
     swift package --disable-sandbox plugin lefthook "$@"

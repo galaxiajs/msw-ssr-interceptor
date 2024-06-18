@@ -1,0 +1,37 @@
+{
+	"$schema": "https://turbo.build/schema.json",
+	"globalDependencies": ["tsconfig.json"],
+	"globalPassThroughEnv": ["CI", "NODE_ENV", "REMOTE_CONTAINERS"],
+	"ui": "stream",
+	"tasks": {
+		"dev": {
+			"cache": false,
+			"persistent": true
+		},
+		"preview": {
+			"cache": false,
+			"persistent": true
+		},
+		"build": {
+			"dependsOn": ["^build"],
+			"outputs": ["dist/**", ".svelte-kit/**"]
+		},
+		"typecheck": {
+			"dependsOn": ["^typecheck"]
+		},
+		"test": {},
+		"test:watch": {
+			"cache": false,
+			"persistent": true
+		},
+		"test:e2e": {
+			"env": ["CI"],
+			"outputs": [
+				"tests/e2e/report/**",
+				"tests/e2e/blob-report/**",
+				"tests/e2e/results/**",
+				"**/.nyc-output/**/*"
+			]
+		}
+	}
+}

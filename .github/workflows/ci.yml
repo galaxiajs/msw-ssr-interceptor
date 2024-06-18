@@ -22,8 +22,7 @@ env:
 jobs:
   lint:
     name: ⬣ Lint
-    runs-on: ubuntu-latest
-    timeout-minutes: 1
+    runs-on: ubuntu-22.04
     steps:
       - name: ⬇️ Checkout repo
         uses: actions/checkout@v4
@@ -36,13 +35,10 @@ jobs:
 
   typecheck:
     name: ʦ Typecheck
-    runs-on: ubuntu-latest
-    timeout-minutes: 2
+    runs-on: ubuntu-22.04
     steps:
       - name: ⬇️ Checkout repo
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 2
 
       - name: 📤 Install Bun
         uses: oven-sh/setup-bun@v1
@@ -53,17 +49,17 @@ jobs:
         run: bun install
 
       - name: 🔎 Typecheck
-        run: bun typecheck --continue
+        run: bun typecheck
 
   test:
     name: "🧪 Test"
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
+    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        node-version: [20, 22]
     steps:
       - name: ⬇️ Checkout repo
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 2
 
       - name: 📤 Install Bun
         uses: oven-sh/setup-bun@v1
@@ -74,4 +70,43 @@ jobs:
         run: bun install
 
       - name: 🧪 Run Tests
-        run: bun run test --continue
+        run: bun run test --continue --filter='!./examples/*'
+
+  playwright:
+    name: "🧪 Playwright"
+    runs-on: ubuntu-22.04
+    timeout-minutes: 15
+    strategy:
+      matrix:
+        node-version: [20, 22]
+    steps:
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v4
+
+      - name: 📤 Install Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - name: 📤 Setup Node ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: 📤 Install dependencies
+        run: bun install
+  
+      - name: 📤 Install Playwright browsers
+        run: bun playwright install --with-deps
+        working-directory: examples/playwright-sveltekit
+
+      - name: 🧪 Run Playwright tests
+        run: bun run test:e2e --continue -- --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
+
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        working-directory: examples/playwright-sveltekit
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30

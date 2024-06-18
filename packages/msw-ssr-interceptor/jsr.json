@@ -6,15 +6,17 @@
 	},
 	"unstable": ["sloppy-imports"],
 	"exports": {
-		".": "./src/index.ts"
+		".": "./src/index.ts",
+		"./node": "./src/node.ts",
+		"./playwright": "./src/playwright.ts"
 	},
 	"publish": {
 		"include": [
 			"jsr.json",
-			"LICENSE",
-			"README.md",
-			"CODE_OF_CONDUCT.md",
-			"CONTRIBUTING.md",
+			"../../LICENSE",
+			"../../README.md",
+			"../../CODE_OF_CONDUCT.md",
+			"../../CONTRIBUTING.md",
 			"src/**/*.ts"
 		],
 		"exclude": ["src/**/*.test.ts", "src/**/*.spec.ts"]

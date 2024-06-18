@@ -70,8 +70,8 @@ though, please make sure to take a moment and read through the following guideli
 ### Prerequisite
 
 ```shell
-node: ">= 18.12.0"
-bun: "^1.0.6"
+node: ">= 20.0.0"
+bun: "^1.1.13"
 # otherwise, your build will fail
 ```
 
@@ -79,7 +79,7 @@ bun: "^1.0.6"
 
 ```shell
 git clone && cd ...
-bun install -y
+bun install
 bun run build
 ```
 
