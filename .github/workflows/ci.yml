@@ -105,8 +105,7 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
-        working-directory: examples/playwright-sveltekit
         with:
           name: playwright-report
-          path: playwright-report/
+          path: examples/*/tests/report/
           retention-days: 30
