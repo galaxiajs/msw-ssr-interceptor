@@ -1,4 +1,4 @@
-import { HttpResponse, delay, http } from "msw";
+import { http, HttpResponse } from "msw";
 import { expect, test } from "../fixtures";
 
 test.describe("home", () => {

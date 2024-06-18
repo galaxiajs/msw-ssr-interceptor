@@ -1,4 +1,4 @@
-import { http, delay, HttpResponse } from "msw";
+import { http, HttpResponse, delay } from "msw";
 
 export const handlers = [
 	http.get("https://api.example.com/user", async () => {
