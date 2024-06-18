@@ -12,7 +12,7 @@
 		"-------------------------------------------------------------------------------": "",
 		"dev": "turbo run dev --filter='./packages/*'",
 		"build": "turbo run build --filter='./packages/*'",
-		"typecheck": "turbo run typecheck",
+		"typecheck": "turbo run typecheck --filter='./packages/*'",
 		"--------------------------------------------------------------------------------": "",
 		"lint": "biome lint .",
 		"lint:fix": "biome check . --apply",
@@ -22,7 +22,7 @@
 		"test": "turbo run test",
 		"test:e2e": "turbo run test:e2e",
 		"test:watch": "turbo run test:watch",
-		"coverage": "turbo run coverage",
+		"coverage": "vitest run --coverage",
 		"----------------------------------------------------------------------------------": "",
 		"release": "changeset publish"
 	},
@@ -32,7 +32,9 @@
 		"@changesets/cli": "^2.27.5",
 		"@commitlint/cli": "^19.3.0",
 		"@commitlint/config-conventional": "^19.2.2",
+		"@vitest/coverage-v8": "^1.6.0",
 		"lefthook": "^1.6.16",
-		"turbo": "^2.0.4"
+		"turbo": "^2.0.4",
+		"vitest": "^1.6.0"
 	}
 }

@@ -47,7 +47,6 @@
 		"typecheck": "tsc --noEmit",
 		"---------------------------------------------------------------------------------": "",
 		"test": "vitest run",
-		"test:e2e": "playwright test",
 		"test:watch": "vitest --watch"
 	},
 	"peerDependencies": {
@@ -74,6 +73,7 @@
 		"@types/ws": "8.5.10",
 		"publint": "0.2.8",
 		"tsup": "8.1.0",
-		"typescript": "5.4.5"
+		"typescript": "5.4.5",
+		"vitest": "1.6.0"
 	}
 }
