@@ -11,7 +11,11 @@
 	"files": {
 		"ignore": [
 			"dist/",
+			".svelte-kit/",
 			"coverage/",
+			"report/",
+			"test-results/",
+			"static/",
 			"vite.config.ts.*",
 			"vitest.config.ts.*",
 			"tsup.config.ts.*"
