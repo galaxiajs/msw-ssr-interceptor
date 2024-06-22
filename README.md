@@ -35,9 +35,11 @@ bun install msw^2.0.0 msw-ssr-interceptor
 - Override mock handlers on a per-test basis in SSR apps
 - Reset overidden mock handlers in SSR apps
 
+And that is it, no more and no less. The scope of this library is much smaller (to fix the SSR story in msw), and so it may have some gaps in features.
+
 ## Usage
 
-Usage should be identical to that of the [`setupServer`](https://mswjs.io/docs/api/setup-server/) API.
+Usage is identical to that of the [`setupServer`](https://mswjs.io/docs/api/setup-server/) API.
 
 First, setup your mocks:
 
@@ -103,8 +105,6 @@ the request on client, sending the response back to your SSR app. This approach 
 function serialisation hell at the expense of network roundtrips.
 
 All serialisation/de-serialisation is handled by [`seroval`](https://github.com/lxsmnsyc/seroval).
-
-And that is it, no more and no less. The scope of this library is much smaller, and so it may have some gaps in features.
 
 ## Playwright
 
