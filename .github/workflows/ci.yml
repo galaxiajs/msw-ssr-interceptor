@@ -65,7 +65,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-          
+
       - name: 📤 Install Bun
         uses: oven-sh/setup-bun@v1
         with:
@@ -117,6 +117,6 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
-          name: playwright-report
+          name: playwright-report-${{ matrix.node-version }}
           path: examples/*/tests/report/
           retention-days: 30
