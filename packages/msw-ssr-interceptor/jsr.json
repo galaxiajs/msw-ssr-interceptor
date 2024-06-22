@@ -11,14 +11,7 @@
 		"./playwright": "./src/playwright.ts"
 	},
 	"publish": {
-		"include": [
-			"jsr.json",
-			"../../LICENSE",
-			"../../README.md",
-			"../../CODE_OF_CONDUCT.md",
-			"../../CONTRIBUTING.md",
-			"src/**/*.ts"
-		],
+		"include": ["jsr.json", "src/**/*.ts"],
 		"exclude": ["src/**/*.test.ts", "src/**/*.spec.ts"]
 	}
 }
