@@ -64,5 +64,10 @@ jobs:
       - name: ⬇️ Checkout repo
         uses: actions/checkout@v4
 
+      - name: 📤 Install Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+          
       - name: 🌍 Publish to JSR
         run: bunx jsr publish
