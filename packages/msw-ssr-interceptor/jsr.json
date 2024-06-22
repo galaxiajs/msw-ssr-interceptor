@@ -1,6 +1,6 @@
 {
-	"name": "msw-ssr-interceptor",
-	"version": "0.0.0",
+	"name": "@galaxiajs/msw-ssr-interceptor",
+	"version": "0.1.0",
 	"compilerOptions": {
 		"lib": ["dom", "dom.iterable", "deno.ns"]
 	},

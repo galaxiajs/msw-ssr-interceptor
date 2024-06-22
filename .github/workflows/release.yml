@@ -51,3 +51,18 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  jsr:
+    name: 🌍 Publish to JSR
+    runs-on: ubuntu-latest
+    # prevents this action from running on forks
+    if: ${{ github.repository_owner == 'galaxiajs' }}
+    permissions:
+      contents: read
+      id-token: write # The OIDC ID token is used for authentication with JSR.    
+    steps:
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v4
+
+      - name: 🌍 Publish to JSR
+        run: bunx jsr publish
