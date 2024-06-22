@@ -68,7 +68,10 @@ jobs:
         uses: oven-sh/setup-bun@v1
         with:
           bun-version: latest
-          
+
+      - name: 📤 Install dependencies
+        run: bun install
+                  
       - name: 🌍 Publish to JSR
         run: bunx jsr publish
         working-directory: packages/msw-ssr-interceptor
