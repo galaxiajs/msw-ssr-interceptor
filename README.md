@@ -102,7 +102,7 @@ it sends that request to the client with the corresponding resolver ID which wil
 the request on client, sending the response back to your SSR app. This approach avoids
 function serialisation hell at the expense of network roundtrips.
 
-All serialisation/de-serialisation is handled by [`serialize-javascript`](https://github.com/yahoo/serialize-javascript).
+All serialisation/de-serialisation is handled by [`seroval`](https://github.com/lxsmnsyc/seroval).
 
 And that is it, no more and no less. The scope of this library is much smaller, and so it may have some gaps in features.
 
