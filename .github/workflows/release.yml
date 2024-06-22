@@ -71,3 +71,4 @@ jobs:
           
       - name: 🌍 Publish to JSR
         run: bunx jsr publish
+        working-directory: packages/msw-ssr-interceptor
