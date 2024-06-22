@@ -1,3 +1,5 @@
+[![JSR](https://jsr.io/badges/@galaxiajs/msw-ssr-interceptor)](https://jsr.io/@galaxiajs/msw-ssr-interceptor)
+
 # `msw-ssr-interceptor`
 
 [`msw`](https://mswjs.io) is great for mocking responses. However, it does not work well when
