@@ -39,6 +39,23 @@
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org"
 	},
+	"keywords": [
+		"api",
+		"mock",
+		"mocking",
+		"worker",
+		"prototype",
+		"server",
+		"service",
+		"handler",
+		"testing",
+		"front-end",
+		"back-end",
+		"server-side-rendering",
+		"ssr",
+		"msw",
+		"mock-service-worker"
+	],
 	"scripts": {
 		"-------------------------------------------------------------------------------": "",
 		"dev": "tsup --watch",
