@@ -106,6 +106,39 @@ All serialisation/de-serialisation is handled by [`seroval`](https://github.com/
 
 And that is it, no more and no less. The scope of this library is much smaller, and so it may have some gaps in features.
 
+## Playwright
+
+As a convenience, a `playwright` fixture is exported from `msw-ssr-interceptor/playwright`
+that will inject the interceptor server into each test so you can override server-side fetches
+with less boilerplate.
+
+The following is an example of how you might use it with `playwright-msw`:
+
+```typescript
+import { expect, test as playwrightTest } from "@playwright/test";
+import { http, type Interceptor } from "msw-ssr-interceptor";
+import { createInterceptorFixture } from "msw-ssr-interceptor/playwright";
+import type { Config, MockServiceWorker } from "playwright-msw";
+import { createWorkerFixture } from "playwright-msw";
+import { handlers } from "../src/mocks/handlers";
+
+// Export function so we can pass different config as needed
+export function testFactory(config: Config) {
+	return playwrightTest.extend<{
+		worker: MockServiceWorker;
+		server: Interceptor;
+		http: typeof http;
+	}>({
+		http,
+		worker: createWorkerFixture(handlers, config),
+		server: createInterceptorFixture(),
+	});
+}
+
+const test = testFactory({ waitForPageLoad: true });
+export { expect, test };
+```
+
 ## Contributing
 
 See [Contributing Guide](CONTRIBUTING.md).
