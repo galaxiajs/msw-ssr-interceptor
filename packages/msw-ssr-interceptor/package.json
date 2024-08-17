@@ -1,7 +1,7 @@
 {
 	"name": "msw-ssr-interceptor",
 	"type": "module",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"description": "Helper to use msw in SSR environments",
 	"author": "Ernest Nkansah-Badu <ernestjbadu@outlook.com> (https://github.com/Ernxst)",
 	"license": "MIT",
@@ -28,12 +28,21 @@
 			"import": "./dist/playwright/index.js"
 		}
 	},
-	"files": ["dist", "package.json"],
+	"files": [
+		"dist",
+		"package.json"
+	],
 	"typesVersions": {
 		"*": {
-			".": ["./dist/index"],
-			"node": ["./dist/node/index"],
-			"playwright": ["./dist/playwright/index"]
+			".": [
+				"./dist/index"
+			],
+			"node": [
+				"./dist/node/index"
+			],
+			"playwright": [
+				"./dist/playwright/index"
+			]
 		}
 	},
 	"publishConfig": {
